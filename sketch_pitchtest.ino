@@ -7,14 +7,23 @@
 //quarter note, eigth note etc.
 int noteDurations[] = {
 
-  4, 4, 4, 4, 4, 4, 4, 4, 4
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16
 };
 
 //notes in the melody:
 
 int melody[] = {
-
-  D4, A4, REST, D4, A4, F4, A4, AS4, A4
+  A3, REST, E4, REST,
+  REST, REST, A3, REST, 
+  REST, E4, REST, REST, 
+  C4, REST, E4, REST, 
+  G4, B3, REST, REST,
+  E4, REST, REST
 };
 
 
@@ -25,11 +34,12 @@ int melody[] = {
 
 int ledPins[] = {
 
-  1, 2, 3, 4
-};
+  8, 9, 10, 11
 
-int speakerPin = 5;
-int buttonPin = 6;
+};
+int speakerPin = 7;
+int buttonPin = 2;
+
 int buttonState = 0; 
 
 
@@ -57,7 +67,7 @@ void playSong(int len, int noteDurations[], int speakerPin) {
 
     //1000/length of note you want
 
-    int noteDuration = 1000 / noteDurations[thisNote];
+    int noteDuration = 1500 / noteDurations[thisNote];
 
 
     //Plays note and activates random light
@@ -82,23 +92,28 @@ void playSong(int len, int noteDurations[], int speakerPin) {
 }
 
 void setup() {
+  
+  Serial.begin(9600);
 
   randomSeed(analogRead(0));
 
   for (int i = 0; i < ledCount; i++) {
     pinMode(ledPins[i], OUTPUT);
   }
-  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
 }
 
 void loop() {
 
   buttonState = digitalRead(buttonPin);
+  
+  Serial.print("Button state: ");
+  Serial.println(buttonState);
 
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
+  if (buttonState == LOW) {
     playSong(noteCount, noteDurations, speakerPin);
+    delay(600);
   }
-
-  delay(5000);
+  delay(50);
 }

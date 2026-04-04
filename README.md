@@ -1,5 +1,8 @@
 # Arduino Melody Player with LED Light Show
 
+## Circuit Diagram
+
+![Circuit Diagram](Lightshow.png)
 
 ## How It Works
 
@@ -15,7 +18,6 @@ When the button is pressed, the sketch plays a short melody one note at a time. 
 | `pitches.h` | Frequency definitions for notes B0 through DS8 |
 
 ---
-
 
 ## Customizing the Melody
 
@@ -43,10 +45,8 @@ int noteDurations[] = {
 };
 ```
 
-Both arrays must be the same length. 
-
-Note duration is calculated as `1905 / value` (to achieve exactly 126 BPM), so a `16` gives roughly a 119ms note step. 
-
+Both arrays must be the same length.
+Note duration is calculated as `1905 / value` (to achieve exactly 126 BPM), so a `16` gives roughly a 119ms note step.
 To speed up or slow down the overall tempo of the song, change the `1905` base number.
 
 ---

@@ -65,9 +65,10 @@ void playSong(int len, int noteDurations[], int speakerPin) {
 
 
 
-    //1000/length of note you want
+    //1905/length of note you want
+    //1905ms is chosen to reflect the 126 bpm of Calabria 2007
 
-    int noteDuration = 1500 / noteDurations[thisNote];
+    int noteDuration = 1905 / noteDurations[thisNote];
 
 
     //Plays note and activates random light
@@ -93,6 +94,7 @@ void playSong(int len, int noteDurations[], int speakerPin) {
 
 void setup() {
   
+  //start serial monitor for debugging
   Serial.begin(9600);
 
   randomSeed(analogRead(0));
@@ -107,10 +109,12 @@ void loop() {
 
   buttonState = digitalRead(buttonPin);
   
+  //serial monitor output for debugging
+  
   Serial.print("Button state: ");
   Serial.println(buttonState);
 
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  //check if the button is pressed
   if (buttonState == LOW) {
     playSong(noteCount, noteDurations, speakerPin);
     delay(600);

@@ -24,16 +24,30 @@ Edit the two arrays in `sketch_pitchtest.ino`:
 ```cpp
 // The notes to play — use constants from pitches.h, or REST for silence
 int melody[] = {
-  D4, A4, REST, D4, A4, F4, A4, AS4, A4
+  A3, REST, E4, REST,
+  REST, REST, A3, REST, 
+  REST, E4, REST, REST, 
+  C4, REST, E4, REST, 
+  G4, B3, REST, REST,
+  E4, REST, REST
 };
 
-// Duration of each note: 4 = quarter note, 8 = eighth note, etc.
+// Duration of each note: treating every step as an equal 16th note on a grid
 int noteDurations[] = {
-  4, 4, 4, 4, 4, 4, 4, 4, 4
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16, 16, 
+  16, 16, 16
 };
 ```
 
-Both arrays must be the same length. Note duration is calculated as `1000 / value`, so a `4` gives a 250ms note, an `8` gives 125ms, and so on.
+Both arrays must be the same length. 
+
+Note duration is calculated as `1905 / value` (to achieve exactly 126 BPM), so a `16` gives roughly a 119ms note step. 
+
+To speed up or slow down the overall tempo of the song, change the `1905` base number.
 
 ---
 

@@ -4,28 +4,21 @@
 
 //-----------------------------------------------------------------------
 
-//quarter note, eigth note etc.
+//DURATIONS
+//8 = eighth note, 16 = sixteenth note
 int noteDurations[] = {
-
-  16, 16, 16, 16, 
-  16, 16, 16, 16, 
-  16, 16, 16, 16, 
-  16, 16, 16, 16, 
-  16, 16, 16, 16, 
-  16, 16, 16
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 8, 16, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 8, 16, 8, 8, 8, 8, 8
 };
 
-//notes in the melody:
-
+//NOTES
 int melody[] = {
-  A3, REST, E4, REST,
-  REST, REST, A3, REST, 
-  REST, E4, REST, REST, 
-  C4, REST, E4, REST, 
-  G4, B3, REST, REST,
-  E4, REST, REST
+  FS5, REST, FS5, REST, FS5, REST, FS5, REST,
+  A5, REST, A5, REST, B5, REST,
+  B5, FS5, E5, D5, B4,
+  FS5, REST, FS5, REST, FS5, REST,
+  E5, REST, E5, REST, FS5, REST,
+  E5, D5, B4
 };
-
 
 //-----------------------------------------------------------------------
 
@@ -65,10 +58,9 @@ void playSong(int len, int noteDurations[], int speakerPin) {
 
 
 
-    //1905/length of note you want
-    //1905ms is chosen to reflect the 126 bpm of Calabria 2007
+    //1000/length of note you want
 
-    int noteDuration = 1905 / noteDurations[thisNote];
+    int noteDuration = 1500 / noteDurations[thisNote];
 
 
     //Plays note and activates random light
@@ -94,7 +86,6 @@ void playSong(int len, int noteDurations[], int speakerPin) {
 
 void setup() {
   
-  //start serial monitor for debugging
   Serial.begin(9600);
 
   randomSeed(analogRead(0));
@@ -109,15 +100,21 @@ void loop() {
 
   buttonState = digitalRead(buttonPin);
   
-  //serial monitor output for debugging
-  
   Serial.print("Button state: ");
   Serial.println(buttonState);
 
-  //check if the button is pressed
-  if (buttonState == LOW) {
+  int rand = random(0, ledCount);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
     playSong(noteCount, noteDurations, speakerPin);
+    if(buttonState == HIGH){
+      digitalWrite(ledPins[rand], HIGH);
+    }
+    
     delay(600);
+
   }
+
   delay(50);
 }
